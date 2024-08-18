@@ -1,3 +1,4 @@
+const baseURL = 'https://govt-up-school-chenkara.onrender.com';
 const urlParams = new URLSearchParams(window.location.search);
 const teacherID = urlParams.get("teacherID");
 const body = document.getElementById("body");
@@ -11,7 +12,7 @@ if (teacherID) {
 
 async function getTeacherById(teacherID) {
   try {
-    const response = await fetch("http://localhost:4000/teachers/dashboard", {
+    const response = await fetch(`${baseURL}/teachers/dashboard`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -103,7 +104,7 @@ document.getElementById("studentForm").onsubmit = async function (e) {
 
   try {
     const response = await fetch(
-      "http://localhost:4000/teachers/createnewstudent",
+      `${baseURL}/teachers/createnewstudent`,
       {
         method: "POST",
         headers: {
@@ -168,7 +169,7 @@ async function fetchAndDisplayStudents() {
     }
 
     const response = await fetch(
-      `http://localhost:4000/teachers/fetchstudentsbyclass?studentClass=${studentClass}`,
+      `${baseURL}/teachers/fetchstudentsbyclass?studentClass=${studentClass}`,
       {
         method: "GET",
         headers: {
@@ -248,7 +249,7 @@ function showDeleteConfirmationPopup(studentId, studentName) {
   deleteButtonElement.onclick = async function () {
     try {
       const response = await fetch(
-        `http://localhost:4000/teachers/deletestudent/${studentId}`,
+        `${baseURL}/teachers/deletestudent/${studentId}`,
         {
           method: "DELETE",
         }
@@ -281,7 +282,7 @@ async function fetchUniqueStudents() {
     );
 
     const response = await fetch(
-      `http://localhost:4000/teachers/fetchstudentsbyclass?studentClass=${classId}`,
+      `${baseURL}/teachers/fetchstudentsbyclass?studentClass=${classId}`,
       {
         method: "GET",
         headers: {
@@ -421,7 +422,7 @@ async function sendAbsentStudentsToServer(absentStudents) {
   };
 
   try {
-    const response = await fetch("http://localhost:4000/teachers/markabsent", {
+    const response = await fetch(`${baseURL}/teachers/markabsent`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -453,7 +454,7 @@ async function sendAbsentStudentsToAttendanceRecordsServer(absentStudents) {
 
   try {
     const response = await fetch(
-      "http://localhost:4000/attendanceRecords/markabsent",
+      `${baseURL}/attendanceRecords/markabsent`,
       {
         method: "POST",
         headers: {
@@ -490,7 +491,7 @@ document
 
     try {
       const response = await fetch(
-        `http://localhost:4000/attendanceRecords/getattendance?class=${globalVariables.teacherClass}`,
+        `${baseURL}/attendanceRecords/getattendance?class=${globalVariables.teacherClass}`,
         {
           method: "GET",
           headers: {

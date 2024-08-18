@@ -1,3 +1,5 @@
+const baseURL = 'https://govt-up-school-chenkara.onrender.com';
+
 const body = document.body;
 const popup = document.getElementById('signup-popup-container');
 
@@ -32,7 +34,7 @@ document.getElementById("signup-form").onsubmit = async function (e) {
 
   try {
     const response = await fetch(
-      "http://localhost:4000/adminaccess/createnewteacher/new",
+      `${baseURL}/adminaccess/createnewteacher/new`,
       {
         method: "POST",
         headers: {
