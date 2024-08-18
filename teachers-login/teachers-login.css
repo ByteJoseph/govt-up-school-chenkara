@@ -1,0 +1,130 @@
+body {
+  overflow: hidden;
+  background-color: lightgreen;
+}
+main {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.login-container {
+  display: grid;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background-color: #fff;
+  width: 400px;
+  height: 550px;
+  padding-left: 20px;
+  padding-right: 20px;
+  border-radius: 8px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.9);
+}
+
+.login-form {
+  display: grid;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+}
+
+.login-form h1 {
+  margin-top: -55px;
+  margin-bottom: 5px;
+  color: grey;
+  font-weight: 500;
+  text-align: center;
+  font-family: "Montserrat", sans-serif;
+  font-size: 30px;
+}
+.form-image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: auto;
+  margin-top: 40px;
+  margin-bottom: 50px;
+}
+.form-image img {
+  height: 170px;
+}
+.form-group {
+  margin-bottom: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  font-size: 16px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+.form-group input:focus {
+  outline: none;
+  box-shadow: 0 0 15px hsl(120, 100%, 25%);
+}
+.form-group input::placeholder {
+  font-family: "Mooli", sans-serif;
+}
+
+button {
+  padding: 7px;
+  background-color: hsl(120, 100%, 25%);
+  border: 2px hsl(120, 100%, 25%) solid;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  text-align: center;
+  transition-duration: 0.4s;
+}
+
+button:hover {
+  color: hsl(120, 100%, 25%);
+  background-color: white;
+  border: 1px hsl(120, 100%, 25%) solid;
+}
+button:active {
+  transform: scale(1.07);
+}
+@media (max-width: 768px) {
+  .login-container {
+    height: 600px;
+    width: 300px;
+  }
+}
+.error-popup {
+  display: none;
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #f44336;
+  color: white;
+  padding: 15px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  transition: transform 0.5s ease , opacity 0.3s ease ;
+}
+
+.error-popup.show {
+  display: block;
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+.error-popup.hide {
+  opacity: 0;
+  transform: translateX(-50%) translateY(50px);
+}

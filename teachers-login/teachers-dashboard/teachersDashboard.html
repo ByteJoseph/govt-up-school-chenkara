@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+Chettan+2:wght@400..800&family=Gafata&family=Lekton:ital,wght@0,400;0,700;1,400&family=Maven+Pro:wght@400..900&family=Montserrat+Alternates:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Mooli&family=Nabla&family=Oxygen:wght@300;400;700&family=Quicksand:wght@300..700&family=Raleway:ital,wght@0,100..900;1,100..900&family=Rubik:ital,wght@0,300..900;1,300..900&family=Text+Me+One&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="teachersDashboard.css">
+    <title>Teachers-Dashboard</title>
+</head>
+<body id="body">
+    <header class="head">
+        <h1>WELCOME ONBOARD,</h1>
+        <h1 id="teacherName">Teacher</h1>
+    </header>
+
+    <main class="operations-face">
+        
+        <ul class="timeline">
+            <h2 id="operations-face-h2">Quick Links</h2>
+            <li>
+              <div class="timeline-content">
+                <h3>Take Attendance</h3>
+                <button class="btn" id="unique-open-attendance-btn">Take Attendance</button>
+              </div>
+            </li>
+            <li>
+              <div class="timeline-content">
+                <h3>Add Notes</h3>
+                <button class="btn">Add Notes</button>
+              </div>
+            </li>
+            <li>
+              <div class="timeline-content">
+                <h3>Publish Testpaper Result</h3>
+                <button class="btn">Publish Result</button>
+              </div>
+            </li>
+            <li>
+              <div class="timeline-content">
+                <h3>Previous Attendance Records</h3>
+                <button class="btn" id="show-attendance-records-btn">Records</button>
+              </div>
+            </li>
+          </ul>
+    </main>
+
+    <div id="unique-attendance-overlay">
+      <div id="unique-attendance-container">
+        <div id="unique-attendance-container-subdivcore">
+          <h1>Take Attendance</h1>
+          <span id="unique-close-attendance-icon">&times;</span>
+        </div>
+        <div id="todays-date">
+          <h3>Today</h3>
+        </div>
+        <div id="unique-attendance-container-guideone">(Tick the ones who are present)</div>
+        <div id="unique-student-list"></div>
+        <div id="unique-submit-attendance-btn-div"><button id="unique-submit-attendance-btn">Submit Attendance</button></div>
+      </div>
+    </div>
+    
+    
+    <div id="confirmation-popup-uniqueId123" class="confirmation-popup-wrapper-uniqueId123">
+      <div class="confirmation-popup-content-uniqueId123">
+          <span class="popup-close-icon-uniqueId123">&times;</span>
+          <h1>Today's Absenties</h1>
+          <p id="confirmation-popup-content-p">absent-students-display</p>
+          <div class="popup-buttons-wrapper-uniqueId123">
+            <button id="popup-cancel-button-uniqueId123" class="popup-button-uniqueId123">Cancel</button>  
+            <button id="popup-yes-button-uniqueId123" class="popup-button-uniqueId123">Yes</button>
+          </div>
+      </div>
+    </div>
+  
+    <div id="attendance-records-popup-dashboard" class="attendance-popup">
+      <div id="attendance-records-popup-dashboard-content-div">
+        <div id="attendance-records-popup-dashboard-head">
+          <span id="attendance-records-popup-close" class="attendance-records-popup-close-icon">&times;</span>
+          <h2>Attendance Records</h2>
+        </div>
+        <div id="attendance-records-content">
+        </div>
+        <div class="capture-btn-div"><button id="capture-button">Download PDF</button></div>
+      </div>
+    </div>
+
+    
+    <main class="students-list">
+        <div class="students-list-div">
+            <div class="students-list-div-head">
+                <h2>My Students</h2>
+            </div>
+            <div class="student-container" id="student-container"></div>></div>
+        </div>
+    </main>
+
+    <div id="delete-confirmation-popup" class="popup-overlay">
+      <div class="popup-content">
+          <span id="delete-confirmation-close-button">&times;</span>
+          <h2 id="delete-confirmation-message"></h2>
+          <button id="delete-confirmation-delete-button">Delete</button>
+      </div>
+    </div>
+
+    
+    <main class="add-student">
+        <button id="createStudentBtn"><i class="fa fa-plus"></i>Add Student</button>
+    </main>
+
+
+    <div id="create-student-popup" class="student-popup">
+        <div class="student-popup-content">
+          <span class="close-btn">&times;</span>
+          <h3>Create New Student</h3>
+          <form id="studentForm" class="cstForm">
+            <input type="text" id="studentName" name="studentName" placeholder="Student Name" required autocomplete="off" spellcheck="false">
+
+            <div class="gender-selection">
+                <label>
+                  <input type="radio" name="gender" value="male" required> Male
+                </label>
+                <label>
+                  <input type="radio" name="gender" value="female" required> Female
+                </label>
+            </div>
+      
+            <input type="text" id="motherName" name="motherName" placeholder="Mother's Name" required autocomplete="off" spellcheck="false">
+      
+            <input type="text" id="fatherName" name="fatherName" placeholder="Father's Name" required autocomplete="off" spellcheck="false">
+      
+            <input type="number" id="motherPhone" name="motherPhone" placeholder="Mother's Phone Number" required pattern="[0-9]{10}" autocomplete="off" spellcheck="false">
+      
+            <input type="number" id="fatherPhone" name="fatherPhone" placeholder="Father's Phone Number" required pattern="[0-9]{10}" autocomplete="off" spellcheck="false">
+      
+            <button type="submit" class="student-save-btn">Save</button>
+          </form>
+        </div>
+    </div>
+
+    <div id="student-profile-creation-success-popup" class="student-profile-creation-success-popup">
+        <div class="student-profile-creation-success-popup-content">
+            <h2 id="student-profile-creation-success-message"></h2>
+            <button id="student-profile-creation-success-ok-button" class="student-profile-creation-success-ok-button">OK</button>
+        </div>
+    </div>
+    
+
+
+    <main class="facel">
+        <div class="facel-main-div">
+            <div class="facel-main-div-head">
+                <h1>Faculty Details</h1>
+                <div class="underline"></div>
+            </div>
+
+            <div class="facel-main-div-main">
+                <div class="facel-main-div-main-sub">
+                    <label class="labels" for="trname">Faculty Name:</label>
+                    <p class="labels-points" id="trname">Name</p>
+                </div>
+                <div class="facel-main-div-main-sub">
+                    <label class="labels" for="trclass">Managing Class:</label>
+                    <p class="labels-points" id="trclass">class</p>
+                </div>
+                <div class="facel-main-div-main-sub">
+                    <label class="labels" for="trNumber">Mobile Number:</label>
+                    <p class="labels-points" id="trNumber">num</p>
+                </div>
+                <div class="facel-main-div-main-sub">
+                    <label class="labels" for="trsubs">Teaching Subject(s):</label>
+                    <p class="labels-points" id="trsubs">SUB</p>
+                </div>
+                <div class="facel-main-div-main-sub">
+                    <label class="labels" for="trcode">Faculty Code:</label>
+                    <p class="labels-points" id="trcode">CODE</p>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <script src="teachersDashboard.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
+    <script src="captureAttendance.js"></script>
+</body>
+</html>

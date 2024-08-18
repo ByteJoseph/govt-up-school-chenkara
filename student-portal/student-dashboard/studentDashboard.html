@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" >
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+Chettan+2:wght@400..800&family=Gafata&family=Lekton:ital,wght@0,400;0,700;1,400&family=Maven+Pro:wght@400..900&family=Montserrat+Alternates:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Mooli&family=Nabla&family=Oxygen:wght@300;400;700&family=Quicksand:wght@300..700&family=Raleway:ital,wght@0,100..900;1,100..900&family=Rubik:ital,wght@0,300..900;1,300..900&family=Text+Me+One&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/partials/footer.css">
+    <link rel="stylesheet" href="/student-portal/student-dashboard/studentDashboard.css">
+    <title>Student-Dashboard</title>
+</head>
+<body>
+    
+    <header class="header" id="header">
+        <h1>Hello</h1>
+        <h1 id="student-name-header"></h1>
+    </header>
+
+    <main class="face1">
+        <div class="vidio-div">
+            <video id="face1-video" src="/student-portal/student-dashboard/sd-resources/boywaving.mp4" autoplay loop muted>
+            </video>
+        </div>
+    </main>
+
+    <main class="face2">
+        <div class="face2-contents-container">
+            <div class="face2-contents">
+                <label for="student-name">Student Name:</label>
+                <p id="student-name">Name</p>
+            </div>
+
+            <div class="face2-contents">
+                <label for="student-class">Class:</label>
+                <p id="student-class">Class</p>
+            </div>
+
+            <div class="face2-contents">
+                <label for="mother-name">Mother Name:</label>
+                <p id="mother-name">Name</p>
+            </div>
+
+            <div class="face2-contents">
+                <label for="mother-number">Mother Number:</label>
+                <p id="mother-number">Num</p>
+            </div>
+
+            <div class="face2-contents">
+                <label for="father-name">Father Name:</label>
+                <p id="father-name">Name</p>
+            </div>
+
+            <div class="face2-contents">
+                <label for="father-number">Father Number:</label>
+                <p id="father-number">Num</p>
+            </div>
+        </div>
+    </main>
+
+    <main class="statistics-face">
+        <div class="statistics-face-head">
+            <h1 id="statistics-face-heading">Your Points</h1>
+            <div class="line"><div></div></div>
+        </div>
+        <div class="statistics-face-main-container">
+            <div class="statistics-face-contents">
+                <label for="daysAbsent">Number of days you absent:</label>
+                <p id="daysAbsent">Num</p>
+            </div>
+
+            <div class="statistics-face-contents">
+                <label for="pointsGuide">Reducing points for one absent day:</label>
+                <p id="pointsGuide">-20</p>
+            </div>
+
+            <div class="statistics-face-contents">
+                <label for="pointsReduced">Total points you lost:</label>
+                <p id="pointsReduced">Num</p>
+            </div>
+
+            <div class="statistics-face-contents">
+                <label for="pointsRemaining">Remaining points:</label>
+                <p id="pointsRemaining">Num</p>
+            </div>
+
+            <div class="statistics-face-contents">
+                <label for="outOf">Out of:</label>
+                <p id="outOf">1000</p>
+            </div>
+        </div>
+    </main>
+
+
+    <main class="face3">
+        <div class="face3-head">
+            <h1>Your Absent Days</h1>
+        </div>
+        <div id="absent-dates-container"></div>
+    </main>
+
+    
+
+    <script src="/student-portal/student-dashboard/studentDashboard.js"></script>
+</body>
+</html>

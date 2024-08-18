@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Baloo+Chettan+2:wght@400..800&family=Gafata&family=Lekton:ital,wght@0,400;0,700;1,400&family=Maven+Pro:wght@400..900&family=Montserrat+Alternates:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Mooli&family=Nabla&family=Oxygen:wght@300;400;700&family=Quicksand:wght@300..700&family=Raleway:ital,wght@0,100..900;1,100..900&family=Rubik:ital,wght@0,300..900;1,300..900&family=Text+Me+One&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="/admin-login/admin-dashboard/adminDashboard.css"
+    />
+    <title>Admin Dashboard</title>
+  </head>
+  <body>
+    <header>
+      <h1>Admin's Dashboard</h1>
+    </header>
+
+    <main class="operations-face">
+      <ul class="timeline">
+        <h2 id="operations-face-h2">Tools</h2>
+        <li>
+          <div class="timeline-content">
+            <h3>Create New Teacher</h3>
+            <button class="btn" id="createNewTeacher">
+              Create Teacher
+            </button>
+          </div>
+        </li>
+       
+      </ul>
+    </main>
+
+
+    <div class="signup-popup-container" id="signup-popup-container">
+        <div id="signup-popup" class="signup-popup">
+            <span id="close-popup" class="close-popup">&times;</span>
+            <h2>New Teacher</h2>
+            <form id="signup-form">
+                <div class="input-group">
+                    <input type="text" id="name" name="name" required placeholder="Name" autocomplete="off">
+                </div>
+                <div class="input-group">
+                    <input type="text" id="class" name="class" required placeholder="Class" autocomplete="off">
+                </div>
+                <div class="input-group">
+                    <input type="password" id="password" name="password" required placeholder="Password" autocomplete="off">
+                </div>
+                <div class="input-group">
+                    <input type="text" id="mobile" name="mobile" required placeholder="Mobile Number" autocomplete="off">
+                </div>
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+    </div>
+    
+
+    <script src="/admin-login/admin-dashboard/adminDashboard.js"></script>
+  </body>
+</html>

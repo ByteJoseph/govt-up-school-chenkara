@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+Chettan+2:wght@400..800&family=Gafata&family=Lekton:ital,wght@0,400;0,700;1,400&family=Maven+Pro:wght@400..900&family=Montserrat+Alternates:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Mooli&family=Nabla&family=Oxygen:wght@300;400;700&family=Quicksand:wght@300..700&family=Raleway:ital,wght@0,100..900;1,100..900&family=Rubik:ital,wght@0,300..900;1,300..900&family=Text+Me+One&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/teachers-login.css">
+    <title>GOVT-UPS-CHENKARA-TEACHERS-LOGIN</title>
+</head>
+<body>
+    <main>
+        <div class="login-container">
+            <form class="login-form" id="login-form">
+                <h1>TEACHERS LOGIN</h1>
+                <div class="form-image">
+                    <img src="/tl-resources/teacher.png">
+                </div>
+                <div class="form-group">
+                    <input type="text" id="user-id" name="user-id" placeholder="Faculty Code" required autocomplete="off" autofocus spellcheck="false" onpaste="return false;">
+                </div>
+                <div class="form-group">
+                    <input type="password" id="password" name="password" placeholder="password" required autocomplete="off" spellcheck="false" onpaste="return false;">
+                </div>
+                <button type="submit">Login</button>
+            </form>
+        </div>
+
+        <div id="errorPopup" class="error-popup">
+            Invalid credentials!
+        </div>
+    </main>
+
+    
+    <script src="/teachers-login.js"></script>
+</body>
+</html>

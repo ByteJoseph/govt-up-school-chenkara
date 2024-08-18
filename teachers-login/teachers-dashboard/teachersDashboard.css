@@ -1,0 +1,855 @@
+body {
+  background-color: white;
+  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+.head {
+  display: grid;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  text-align: center;
+  background-color: #333;
+}
+.head h1 {
+  color: #999;
+  font-size: 26px;
+  font-family: "Quicksand", sans-serif;
+}
+#teacherName {
+  margin-top: -13px;
+}
+.facel {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.facel-main-div {
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  width: auto;
+  padding: 20px;
+  border-radius: 30px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+.facel-main-div-head {
+  display: grid;
+  text-align: center;
+}
+.facel-main-div-head h1 {
+  margin-top: -11px;
+  font-family: "Maven Pro", sans-serif;
+  font-weight: 500;
+}
+.underline {
+  border-bottom: 2px solid #000;
+  width: 100%;
+  margin-top: -3px;
+  margin-bottom: 20px;
+}
+.facel-main-div-main {
+  display: flex;
+  flex-direction: column;
+}
+
+.facel-main-div-main-sub {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 900px;
+  height: 50px;
+  margin-bottom: 10px;
+}
+.labels {
+  font-weight: 500;
+  font-size: 25px;
+  font-family: "Montserrat", sans-serif;
+  margin: 0;
+}
+
+.labels-points {
+  margin: 0;
+  font-size: 25px;
+  font-family: "Montserrat", sans-serif;
+}
+@media (max-width: 768px) {
+  .facel-main-div {
+    width: 100%;
+    margin: 25px;
+  }
+  .facel-main-div-main {
+    padding: 0;
+    width: 100%;
+  }
+  .facel-main-div-main-sub {
+    width: 100%;
+    height: 70px;
+    margin: 10px;
+  }
+  .labels {
+    font-size: 20px;
+  }
+  .labels-points {
+    font-size: 20px;
+    margin-left: 5px;
+  }
+  .facel-main-div-head h1 {
+    margin-top: -1px;
+  }
+}
+.operations-face {
+  width: 100%;
+  height: 100vh;
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 150px;
+}
+.timeline {
+  list-style-type: none;
+  position: relative;
+  padding: 0;
+  margin: 0;
+  margin-top: -10px;
+}
+
+.timeline::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 10px;
+  width: 2px;
+  height: 100%;
+  background-color: green;
+  z-index: -1;
+}
+
+.timeline li {
+  margin: 20px 0;
+  position: relative;
+  padding-left: 40px;
+}
+
+.timeline li::before {
+  content: "";
+  background-color: green;
+  width: 25px;
+  height: 25px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  border-radius: 50%;
+  z-index: 1;
+}
+
+.timeline-content {
+  background-color: #f9f9f9;
+  padding: 30px;
+  padding-right: 100px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+
+.timeline-content h3 {
+  margin: 0;
+  font-size: 23px;
+  font-family: "Maven Pro", sans-serif;
+}
+
+.btn {
+  margin-top: 10px;
+  padding: 10px 20px;
+  background-color: green;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 19px;
+  transition-duration: 0.28s;
+}
+
+.btn:hover {
+  background-color: hsl(120, 100%, 29%);
+}
+.btn:active{
+    transform: scale(1.1);
+}
+#operations-face-h2{
+    font-family: "Raleway", sans-serif;
+    margin-left: 20px;
+    margin-bottom: 90px;
+    text-decoration: underline green;
+}
+@media (min-width: 768px){
+    .timeline{
+        margin-left: -100px;
+        margin-top: -10px;
+    }
+    .timeline-content{
+        padding-right: 500px;
+    }
+}
+
+.students-list{
+    display: grid;
+    width: 100%;
+    height: 95vh;
+    justify-content: center;
+}
+.students-list-div{
+    display: grid;
+    justify-content: center;
+    text-align: center;
+    border-radius: 20px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    width: auto;
+    height: auto;
+    padding: 30px;
+}
+@media (max-width:768px){
+  .students-list-div{
+    padding: 10px;
+  }
+}
+.students-list-div-head{
+    width: 100%;
+}
+.students-list-div-head h2{
+    margin-top: -3px;
+    text-decoration: underline;
+    font-family: "Raleway", sans-serif;
+}
+@media (max-width: 768px){
+    .students-list-div{
+        width: auto;
+        
+    }
+    .students-list-div-head{
+        width: 100%;
+    }
+}
+
+.add-student{
+    display: flex;
+    width: 100%;
+    height: 35vh;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    margin-top: 70px;
+    margin-bottom: -70px;
+}
+.add-student button i{
+    font-size: 24px;
+    margin-right: 10px;
+}
+.add-student button{
+    width: auto;
+    font-size: 25px;
+    font-weight: 530;
+    border-radius: 15px;
+    background-color: white;
+    color: green;
+    border: 2px solid green;
+    outline: none;
+    font-family: "Oxygen", sans-serif;
+    padding: 19px;
+    transition-duration: 0.3s;
+}
+.add-student button:hover{
+    border-radius: 35px;
+}
+.add-student button:active{
+    border-radius: 25px;
+}
+
+
+.open-student-popup-btn {
+  padding: 10px 15px;
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.open-student-popup-btn:hover {
+  background-color: #2980b9;
+}
+
+.student-popup {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.student-popup-content {
+  background-color: white;
+  padding: 25px;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 400px;
+  box-sizing: border-box;
+  height: auto;
+}
+.student-popup-content h3{
+  font-size: 25px;
+  margin-top: -3px;
+  margin-bottom: 40px;
+  font-family: "Montserrat", sans-serif;
+}
+.cstForm input {
+  width: 100%;
+  padding: 14px;
+  font-size: 18px;
+  font-family: "Quicksand", sans-serif;
+  font-weight: 500;
+  text-align: left;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 15px;
+  box-sizing: border-box;
+}
+.cstForm input:focus {
+  border: 1px solid #666;
+  outline: none;
+  border-radius: 25px;
+}
+.gender-selection {
+  display: flex;
+  margin: 15px 0;
+}
+
+.gender-selection label {
+  display: flex;
+  margin-right: 10px;
+  font-size: 20px;
+  font-family: "Quicksand", sans-serif;
+  font-weight: normal;
+}
+.gender-selection label:hover{
+  cursor: pointer;
+}
+.student-save-btn {
+  width: 100%;
+  margin-top: 10px;
+  padding: 10px;
+  font-size: 15px;
+  background-color: #2ecc71;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.student-save-btn:hover {
+  background-color: #27ae60;
+}
+
+.close-btn {
+  color: #aaa;
+  float: right;
+  font-size: 35px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.close-btn:hover,
+.close-btn:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+#create-student-popup{
+  display: none;
+}
+
+.student-profile-creation-success-popup {
+  display: none;
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+.student-profile-creation-success-popup-content {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+.student-profile-creation-success-popup-content h2{
+  font-size: 20px;
+  font-weight: 500;
+  font-family: "Montserrat", sans-serif;
+}
+.student-profile-creation-success-ok-button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  font-size: 14px;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.student-profile-creation-success-ok-button:hover {
+  background-color: #45a049;
+}
+
+
+.student-div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 3px solid green;
+  padding: 10px;
+  width: auto;
+  gap: 350px;
+  margin: 11px 0;
+  border-radius: 15px;
+  background-color: rgb(248, 246, 246);
+}
+@media (max-width: 768px){
+  .student-div{
+    gap: 150px;
+  }
+}
+.student-div h3 {
+  color: black;
+  font-family: "Text Me One", sans-serif;
+  margin: 0;
+}
+.student-buttons {
+  display: flex;
+  gap: 10px;
+}
+.student-buttons button {
+  padding: 5px 10px;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  cursor: pointer;
+}
+.student-buttons button.delete {
+  border-radius: 10px;
+  background-color: #dc3545;
+  transition-duration: 0.3s;
+}
+.student-buttons button.delete:hover{
+  background-color: hsl(354, 55%, 49%);
+}
+
+#delete-confirmation-popup {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  justify-content: center;
+  align-items: center;
+}
+
+#delete-confirmation-popup .popup-content {
+  background-color: white;
+  padding: 20px;
+  padding-top: 10px;
+  border-radius: 17px;
+  width: 300px;
+  max-width: 80%;
+}
+
+#delete-confirmation-close-button {
+  font-size: 40px;
+  color: black;
+  margin-left: 270px;
+  cursor: pointer;
+  
+}
+
+#delete-confirmation-message {
+  margin: 20px 0;
+  margin-top: 10px;
+  text-align: center;
+  font-family: 'Quicksand', sans-serif;
+  font-size: 23px;
+}
+
+#delete-confirmation-delete-button {
+  background-color: #f44336;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  padding: 10px;
+  cursor: pointer;
+  width: 100%;
+}
+
+#delete-confirmation-delete-button:hover {
+  background-color: #d32f2f;
+}
+
+
+
+#unique-attendance-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  justify-content: center;
+  align-items: center;
+  z-index: 5000;
+}
+
+#unique-attendance-container {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  width: 400px;
+  max-width: 90%;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+
+#unique-attendance-container-subdivcore{
+  display: flex;
+  margin-bottom: 10px;
+}
+#unique-attendance-container-subdivcore h1{
+  font-family: "Montserrat", sans-serif;
+  font-size: 30px;
+  margin-top: -10px;
+  margin-left: 50px;
+}
+#unique-close-attendance-icon {
+  position: absolute;
+  top: 5px;
+  right: 14px;
+  font-size: 40px;
+  cursor: pointer;
+}
+
+#todays-date{
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  width: 100%;
+  margin-top: -25px;
+  margin-bottom: 30px;
+}
+#todays-date h3{
+  font-family: "Text Me One", sans-serif;
+  font-size: 20px;
+  text-decoration: underline;
+  color: green;
+}
+
+#unique-attendance-container-guideone{
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  text-align: center;
+  margin-top: -15px;
+  margin-bottom: 40px;
+  font-style: italic;
+  color: #333;
+}
+
+#unique-student-list {
+  margin-bottom: 20px;
+  max-height: 55vh;
+  overflow-y: auto;
+}
+#unique-attendance-container::-webkit-scrollbar,
+#unique-student-list::-webkit-scrollbar {
+    width: 10px;
+}
+
+#unique-attendance-container::-webkit-scrollbar-track,
+#unique-student-list::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 50px;
+}
+
+#unique-attendance-container::-webkit-scrollbar-thumb,
+#unique-student-list::-webkit-scrollbar-thumb {
+    background-color: blue;
+    border-radius: 50px;
+    border: 2px solid #fff;
+}
+
+#unique-attendance-container,
+#unique-student-list {
+    padding-right: 15px;
+    scrollbar-width: thin;
+    scrollbar-color: green white;
+}
+
+#unique-attendance-container::-webkit-scrollbar-thumb:hover,
+#unique-student-list::-webkit-scrollbar-thumb:hover {
+    background-color: green;
+}
+
+input[type="checkbox"] {
+  transform: scale(1.6);
+  margin: 10px;
+}
+
+.unique-student-item {
+  display: flex;
+  border: #333 2px solid;
+  border-radius: 15px;
+  padding: 11px;
+  background-color: rgb(198, 241, 198);
+  font-family: "Quicksand", sans-serif;
+  font-weight: 550;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.unique-student-item label {
+  font-size: 18px;
+  flex: 1;
+}
+
+.unique-student-item input[type="checkbox"] {
+  margin-left: 10px;
+  font-size: 30px;
+}
+
+#unique-submit-attendance-btn-div{
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}
+
+#unique-submit-attendance-btn {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+#unique-submit-attendance-btn:hover {
+  background-color: #0056b3;
+}
+
+
+#confirmation-popup-uniqueId123 {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 4000;
+}
+
+.confirmation-popup-wrapper-uniqueId123 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.confirmation-popup-content-uniqueId123 {
+  background-color: white;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.3);
+  position: relative;
+  width: 300px;
+  text-align: center;
+}
+.confirmation-popup-content-uniqueId123 h1{
+  font-family: "Montserrat Alternates", sans-serif;
+  font-weight: 550;
+  font-size: 27px;
+  margin-top: 20px;
+  margin-bottom: 25px;
+}
+#confirmation-popup-content-p{
+  font-family: 'Mooli', sans-serif;
+  margin-bottom: 25px;
+}
+.popup-close-icon-uniqueId123 {
+  position: absolute;
+  top: 8px;
+  right: 17px;
+  font-size: 35px;
+  cursor: pointer;
+}
+
+.popup-buttons-wrapper-uniqueId123 {
+  margin-top: 20px;
+}
+
+.popup-button-uniqueId123 {
+  padding: 10px 20px;
+  margin: 0 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+#popup-yes-button-uniqueId123 {
+  background-color: #4CAF50;
+  color: white;
+  padding-left: 30px;
+  padding-right: 30px;
+}
+
+#popup-cancel-button-uniqueId123 {
+  background-color: #f44336;
+  color: white;
+}
+
+
+
+.attendance-popup {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  align-items: center;
+  justify-content: center;
+  z-index: 6000;
+}
+
+#attendance-records-popup-dashboard-content-div {
+  display: grid;
+  justify-content: center;
+  background: white;
+  border-radius: 25px;
+  max-width: 600px;
+}
+
+#attendance-records-popup-dashboard-head {
+  display: flex;
+  position: relative;
+  width: 400px;
+  justify-content: center;
+  background-color: lightgreen;
+  border-radius: 20px;
+  font-family: "Montserrat", system-ui;
+}
+
+.attendance-popup h2 {
+  text-align: center;
+  margin-left: -60px;
+}
+
+.attendance-popup #attendance-records-content {
+  padding: 20px;
+  display: grid;
+  border-radius: 8px;
+  max-width: 360px;
+  max-height: calc(100vh - 100px);
+  max-height: 450px;
+  overflow: auto;
+  overflow-x: auto;
+  overflow-y: auto;
+  white-space: nowrap;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.attendance-popup #attendance-records-content::-webkit-scrollbar {
+  display: none;
+}
+
+.attendance-records-popup-close-icon {
+  position: absolute;
+  top: 13px;
+  right: 17px;
+  font-size: 35px;
+  cursor: pointer;
+}
+
+.attendance-record-item {
+  display: grid;
+}
+
+.attendance-record-content {
+  display: flex;
+  border: black 1px solid;
+  border-radius: 1px;
+  background-color: white;
+}
+
+.attendance-record-date {
+  padding: 7px;
+  display: flex;
+  font-size: 20px;
+  border-right: 1px black solid;
+  margin-right: 18px;
+  background-color: white;
+}
+
+.attendance-record-students {
+  display: flex;
+  padding: 7px;
+  font-size: 20px;
+  white-space: nowrap;
+  background-color: white;
+}
+.capture-btn-div{
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  margin-top: 15px;
+  margin-bottom: 20px;
+}
+.capture-btn-div button{
+  padding: 15px;
+  font-size: 15px;
+  background-color: green;
+  border-radius: 20px;
+  font-family: 'Mooli', sans-serif;
+  color: white;
+  border: none;
+  outline: none;
+  transition-duration: 0.2s;
+}
+.capture-btn-div button:hover{
+  cursor: pointer;
+  background-color: rgb(1, 151, 1);
+}

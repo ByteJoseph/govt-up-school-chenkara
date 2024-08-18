@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="/adminLogin.css">
+    <title>Admin Login GUPS Chenkara</title>
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-form">
+            <h1>Admin Login</h1>
+            <form id="login-form">
+                <div class="input-group">
+                    <input type="text" id="admin-id" name="username" required placeholder="Yūzā-mei" autocomplete="off">
+                </div>
+                <div class="input-group">
+                    <input type="password" id="admin-password" name="password" required placeholder="Pasuwādo" autocomplete="off">
+                </div>
+                <button type="submit">ログイン</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="error-popup" class="error-popup">
+        <p id="error-message">Invalid Credentials</p>
+    </div>
+    
+
+    <script src="/adminLogin.js"></script>
+</body>
+</html>
