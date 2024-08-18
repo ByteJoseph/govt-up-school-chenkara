@@ -1,3 +1,4 @@
+const baseURL = 'https://govt-up-school-chenkara.onrender.com';
 const urlParams = new URLSearchParams(window.location.search);
 const studentID = urlParams.get("studentID");
 const body = document.body;
@@ -15,7 +16,7 @@ if (studentID) {
 
 async function getStudentById(studentID) {
   try {
-    const response = await fetch("http://localhost:4000/students/dashboard", {
+    const response = await fetch(`${baseURL}/students/dashboard`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -92,7 +93,7 @@ function displayStudentDetails(studentData) {
 
 async function fetchAndDisplayAbsentDates(studentID) {
   try {
-    const response = await fetch(`http://localhost:4000/students/absentdates/${studentID}`);
+    const response = await fetch(`${baseURL}/students/absentdates/${studentID}`);
     if (!response.ok) {
       throw new Error('Failed to fetch absent dates');
     }
@@ -129,7 +130,7 @@ function displayAbsentDates(absentDates) {
 
 async function studentsAttendancePointsFn(studentID) {
   try {
-    const response = await fetch(`http://localhost:4000/students/points/${studentID}`);
+    const response = await fetch(`${baseURL}/students/points/${studentID}`);
 
     if (!response.ok) {
       throw new Error(`Failed to fetch student info: ${response.statusText}`);

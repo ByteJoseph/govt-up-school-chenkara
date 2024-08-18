@@ -1,3 +1,5 @@
+const baseURL = 'https://govt-up-school-chenkara.onrender.com';
+
 document
   .getElementById("login-form")
   .addEventListener("submit", async function (e) {
@@ -9,7 +11,7 @@ document
 
     try {
       const response = await fetch(
-        "http://localhost:4000/students/student-login",
+        `${baseURL}/students/student-login`,
         {
           method: "POST",
           headers: {
