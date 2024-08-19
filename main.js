@@ -8,6 +8,7 @@ const homepageRoute = require('./routes/homepage.route');
 const adminRoute = require('./routes/admin.route');
 const attendanceRecordsRoute = require('./routes/attendanceRecords.route');
 const session = require('express-session');
+const helmet = require('helmet');
 const path = require('path');
 const cors = require('cors');
 const app = express();
@@ -17,6 +18,7 @@ require('dotenv').config();
 // Middleware
 app.use(cors());
 app.use(express.json());
+app.use(helmet());
 app.use(express.static(path.join(__dirname, 'index-file')));
 app.use(express.static(path.join(__dirname, 'teachers-login')));
 app.use(express.static(path.join(__dirname, 'student-portal')));
@@ -36,13 +38,21 @@ app.use(session({
   cookie: { secure: false, httpOnly: true } 
 }));
 
-/*const allowedOrigin = 'https://govt-up-school-chenkara.onrender.com';
+const allowedOrigins = [
+  'https://govt-up-school-chenkara.onrender.com', 
+];
 
 app.use(cors({
-  origin: allowedOrigin,
+  origin: function(origin, callback) {
+    if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   credentials: true
-}));*/
+}));
 
 
 

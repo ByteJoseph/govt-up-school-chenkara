@@ -883,3 +883,22 @@ input[type="checkbox"] {
   cursor: pointer;
   background-color: rgb(1, 151, 1);
 }
+@media (max-width: 768px) {
+  #attendance-records-popup-dashboard-content-div {
+    max-width: 97%;
+    margin: 0 auto;
+  }
+
+  .attendance-popup {
+    display: flex;
+    align-items: center;
+  }
+
+  #attendance-records-popup-dashboard-head {
+    width: 100%;
+  }
+
+  #attendance-records-content {
+    max-width: 100%;
+  }
+}
