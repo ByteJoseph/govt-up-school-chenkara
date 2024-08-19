@@ -99,8 +99,14 @@ button:active {
 }
 @media (max-width: 768px) {
   .login-container {
+    margin-top: -80px;
     height: 600px;
-    width: 300px;
+    width: 270px;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+  .login-form h1{
+    font-size: 25px;
   }
 }
 .error-popup {

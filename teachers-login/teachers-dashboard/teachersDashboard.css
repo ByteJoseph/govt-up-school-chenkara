@@ -161,7 +161,14 @@ body {
   font-size: 23px;
   font-family: "Maven Pro", sans-serif;
 }
-
+@media(max-width: 768px){
+  .timeline-content h3{
+    font-size: 20px;
+  }
+  .operations-face{
+    margin-top: 60px;
+  }
+}
 .btn {
   margin-top: 10px;
   padding: 10px 20px;
@@ -399,6 +406,12 @@ body {
   text-align: center;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
+@media (max-width: 768px){
+  .student-profile-creation-success-popup-content{
+    padding: 10px;
+    width: 300px;
+  }
+}
 .student-profile-creation-success-popup-content h2{
   font-size: 20px;
   font-weight: 500;
@@ -435,7 +448,7 @@ body {
 }
 @media (max-width: 768px){
   .student-div{
-    gap: 150px;
+    gap: 110px;
   }
 }
 .student-div h3 {
@@ -538,7 +551,12 @@ body {
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   position: relative;
 }
-
+@media (max-width: 768px){
+  #unique-attendance-container{
+    width: 300px;
+    padding: 15px;
+  }
+}
 #unique-attendance-container-subdivcore{
   display: flex;
   margin-bottom: 10px;
@@ -548,6 +566,13 @@ body {
   font-size: 30px;
   margin-top: -10px;
   margin-left: 50px;
+}
+@media (max-width: 768px){
+  #unique-attendance-container-subdivcore h1{
+    font-size: 25px;
+    margin-top: -3px;
+    margin-left: 30px;
+  }
 }
 #unique-close-attendance-icon {
   position: absolute;
@@ -587,6 +612,11 @@ body {
   margin-bottom: 20px;
   max-height: 55vh;
   overflow-y: auto;
+}
+@media (max-width: 768px){
+  #unique-student-list {
+    max-height: 48vh;
+  }
 }
 #unique-attendance-container::-webkit-scrollbar,
 #unique-student-list::-webkit-scrollbar {
