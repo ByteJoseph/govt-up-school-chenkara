@@ -33,8 +33,17 @@ app.use(session({
   secret: 'cors-key-value',
   resave: false,
   saveUninitialized: true,
-  cookie: { secure: false, httpOnly: true } // Consider secure: true in production with HTTPS
+  cookie: { secure: false, httpOnly: true } 
 }));
+
+const allowedOrigin = 'https://govt-up-school-chenkara.onrender.com';
+
+app.use(cors({
+  origin: allowedOrigin,
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  credentials: true
+}));
+
 
 
 // Routing
