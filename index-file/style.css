@@ -29,7 +29,7 @@ body, main {
   
 #the-content {
     display: none;
-    padding: 20px;
+    padding: 5px;
 }
 
 body {
@@ -119,6 +119,7 @@ header h1{
     display: flex;
     justify-content: center;
     align-items: center;
+    text-align: center;
     flex-direction: column;
     transition: right 0.3s ease;
     z-index: 1000;
@@ -132,42 +133,66 @@ header h1{
     list-style: none;
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
+    padding: 0;
+    margin: 0;
+    width: 100%;
 }
 
 .header-list-overlay li {
-    margin: 20px 0;
+    margin: 15px 0;
     font-size: 20px;
     font-family: 'Mooli', sans-serif;
+    width: 100%;
+    text-align: center;
 }
 
 .header-list-overlay li a {
     text-decoration: none;
     color: white;
     transition: all 0.3s ease;
+    display: block;
+    padding: 10px 0;
+    width: 100%;
 }
-.header-list-overlay li a:hover{
+
+.header-list-overlay li a:hover {
     padding-left: 8px;
 }
-@media (max-width: 768px){
-    .header-list-overlay{
+
+@media (max-width: 768px) {
+    .header-list-overlay {
         width: 100%;
         background-color: white;
     }
-    .header-list-overlay li a{
-        color: #333;
-    }
-    .header-list-overlay li{
-        margin: 26px 0;
+
+    .header-list-overlay ul {
+        padding: 0;
+        margin: 0;
     }
 
+    .header-list-overlay li a {
+        color: #333;
+    }
+
+    .header-list-overlay li {
+        margin: 15px 0;
+    }
 }
+
 @media (max-width: 768px) {
     .navbar {
         flex-direction: row;
         align-items: center;
+        justify-content: center;
+        text-align: center;
     }
 }
+
+
+
+
 .face1{
     display: flex;
     justify-content: center;
@@ -180,7 +205,7 @@ header h1{
     position: absolute;
     z-index: 1400;
     text-align: center;
-    font-size: 25px;
+    font-size: 20px;
     color: #00008B;
     font-family: "Montserrat Alternates", sans-serif;
     transform: translateY(-100%);
@@ -239,6 +264,7 @@ header h1{
     }
     .face1 h1{
         color: white;
+        font-size: 27px;
     }
 }
 .face2{
@@ -285,8 +311,8 @@ header h1{
         margin-top: 60px;
     }
     .face2-heading-div h1{
-        margin-left: 120px;
-        margin-right: 120px;
+        margin-left: 100px;
+        margin-right: 100px;
         font-size: 23px;
         
     }
@@ -320,14 +346,19 @@ header h1{
     font-size: 30px;
     font-family: 'Comfortaa', sans-serif;
 }
+@media(max-width: 768px){
+    .face3-divider{
+        font-size: 23px;
+    }
+}
 .face3-divider1{
     width: 50%;
-    background-color: #ca4510;
+    background-color:aquamarine;
     padding: 15px;
 }
 .face3-divider2{
     width: 50%;
-    background-color: #4bca10;
+    background-color: cadetblue;
     padding: 15px;
 }
 .face3-cards-div {
@@ -348,7 +379,14 @@ header h1{
     transform: translateX(0);
     transition: opacity 0.6s ease-out, transform 0.6s ease-out;
 }
-
+@media (max-width: 768px){
+    .face3-cards h2{
+        font-size: 20px;
+    }
+    .face3-cards p{
+        font-size: 15px;
+    }
+}
 .face3-cards.slide-in-left {
     animation: slide-in-left 0.6s forwards;
 }
@@ -419,6 +457,7 @@ header h1{
         font-size: 25px;
     }
 }
+
 .face4{
     display: block;
     align-items: center;
@@ -437,7 +476,7 @@ header h1{
 }
 @media (max-width: 768px){
     .face4-heading-div h1{
-        font-size: 30px;
+        font-size: 26.5px;
     }
 }
 .line {
@@ -483,11 +522,7 @@ header h1{
     opacity: 1;
     transform: translateY(0);
 }
-@media (max-width: 768px){
-    .face4-cards{
-        width: 400px;
-    }
-}
+
 .face4-cards-line{
     display: flex;
     width: 100%;
@@ -507,6 +542,14 @@ header h1{
 .face4-cards-img-div img{
     height: 260px;
 }
+@media (max-width: 768px){
+    .face4-cards{
+        width: 300px;
+    }
+    .face4-cards-img-div img{
+        height: 240px;
+    }
+}
 
 .face5 {
     display: grid;
@@ -525,6 +568,11 @@ header h1{
     opacity: 0;
     transform: translateY(50px);
     transition: opacity 0.9s ease-out, transform 1s ease-out;
+}
+@media(max-width:768px){
+    .face5-h1{
+        font-size: 35px;
+    }
 }
 .face5-h1.visible {
   opacity: 1;
@@ -591,7 +639,11 @@ header h1{
 .card-body p {
     color: #666;
 }
-  
+@media(max-width:768px){
+    .card-body h2{
+        font-size: 1.3em;
+    }
+}
 .navigation {
     position: absolute;
     bottom: 10px;
@@ -650,7 +702,7 @@ header h1{
 }
 @media (max-width: 768px){
     .face6-heading-div h1{
-        font-size: 30px;
+        font-size: 24px;
         margin-left: 40px;
         margin-right: 40px;
     }
@@ -683,6 +735,11 @@ header h1{
     font-size: 24px;
     font-family: "Maven Pro", sans-serif;
     font-weight: 480;
+}
+@media (max-width:768px){
+    .face6-sections-head-heading h1{
+        font-size: 20px;
+    }
 }
 .face6-sections-head-buttons{
     display: flex;
@@ -732,6 +789,9 @@ header h1{
         width: auto;
         margin-left: 10PX;
         margin-right: 10px;
+    }
+    .face6-sections-tail p{
+        font-size: 17px;
     }
 }
 @media (max-width: 1024px){
@@ -985,6 +1045,11 @@ header h1{
     font-family: "Mooli", sans-serif;
     font-size: 40px;
 }
+@media(max-width: 768px){
+    .face12 h1{
+        font-size: 25px;
+    }
+}
 .face12-message{
     display: grid;
     width: 100%;
@@ -1007,8 +1072,13 @@ header h1{
         text-align: left;
         margin-left: 15px;
     }
+    .face12-message h4{
+        font-size: 18px;
+        margin-right: 50px;
+    }
     .face12-message p{
         margin-right: 50px;
+        font-size: 18px;
     }
 }
 @media(min-width: 768px){
@@ -1059,6 +1129,14 @@ header h1{
 }
 .face13-contents h3{
     font-size: 24px;
+}
+@media(max-width: 768px){
+    .face13 h1{
+        font-size: 25px;
+    }
+    .face13-contents h3{
+        font-size: 20px;
+    }
 }
 .face13-contents-subdiv{
     width: auto;
@@ -1125,6 +1203,11 @@ header h1{
     color: #666;
     font-weight: 700;
     font-family: "Montserrat Alternates", sans-serif;
+}
+@media(max-width: 768px){
+    .f-h-div h1{
+        font-size: 25px;
+    }
 }
 .row{
 	display: flex;

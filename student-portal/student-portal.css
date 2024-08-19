@@ -18,8 +18,8 @@ main {
   background-color: #fff;
   width: 400px;
   height: 550px;
-  padding-left: 20px;
-  padding-right: 20px;
+  padding-left: 10px;
+  padding-right: 10px;
   border-radius: 8px;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.9);
 }
@@ -41,6 +41,7 @@ main {
   font-family: "Montserrat", sans-serif;
   font-size: 30px;
 }
+
 .form-image {
   display: flex;
   align-items: center;
@@ -49,6 +50,17 @@ main {
 }
 .form-image img {
   height: 250px;
+}
+@media(max-width: 768px){
+  .login-container{
+    margin-top: -80px;
+  }
+  .login-form h1{
+    font-size: 25px;
+  }
+  .form-image img {
+    height: 230px;
+  }
 }
 .form-group {
   margin-bottom: 15px;
