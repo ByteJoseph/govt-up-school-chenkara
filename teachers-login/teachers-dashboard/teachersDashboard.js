@@ -12,7 +12,7 @@ if (teacherID) {
 
 async function getTeacherById(teacherID) {
   try {
-    const response = await fetch(`${baseURL}/teachers/dashboard`, {
+    const response = await fetch(`${baseURL}/teachers/teacherDetails`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -41,19 +41,19 @@ const globalVariables = {
 };
 
 function saveTeacherData(teacherData) {
-  globalVariables.teacherName = teacherData.name;
-  globalVariables.teacherClass = teacherData.class;
-  globalVariables.teacherMobileNumber = teacherData.mobileNumber;
+  globalVariables.teacherName = teacherData.teacher.name;
+  globalVariables.teacherClass = teacherData.teacher.class;
+  globalVariables.teacherMobileNumber = teacherData.teacher.mobileNumber;
 }
 
 function updateDOM() {
   const teacherNameView = document.getElementById("teacherName");
-  teacherNameView.textContent = globalVariables.teacherName; // Use textContent for safe text insertion
+  teacherNameView.textContent = sanitizeHtml(globalVariables.teacherName);
 
-  document.getElementById("trname").textContent = globalVariables.teacherName;
-  document.getElementById("trclass").textContent = globalVariables.teacherClass;
-  document.getElementById("trNumber").textContent = globalVariables.teacherMobileNumber;
-  document.getElementById("trcode").textContent = teacherID;
+  document.getElementById("trname").textContent = sanitizeHtml(globalVariables.teacherName);
+  document.getElementById("trclass").textContent = sanitizeHtml(globalVariables.teacherClass);
+  document.getElementById("trNumber").textContent = sanitizeHtml(globalVariables.teacherMobileNumber);
+  document.getElementById("trcode").textContent = sanitizeHtml(teacherID);
 }
 
 let popup = document.getElementById("create-student-popup");
@@ -71,7 +71,7 @@ closeBtn.onclick = function () {
 };
 
 window.onclick = function (event) {
-  if (event.target == popup) {
+  if (event.target === popup) {
     popup.style.display = "none";
   }
 };
@@ -81,9 +81,7 @@ document.getElementById("studentForm").onsubmit = async function (e) {
 
   const studentName = document.getElementById("studentName").value;
   const studentClass = globalVariables.teacherClass;
-  const studentGender = document.querySelector(
-    'input[name="gender"]:checked'
-  ).value;
+  const studentGender = document.querySelector('input[name="gender"]:checked').value;
   const motherName = document.getElementById("motherName").value;
   const fatherName = document.getElementById("fatherName").value;
   const motherNumber = document.getElementById("motherPhone").value;
@@ -100,16 +98,13 @@ document.getElementById("studentForm").onsubmit = async function (e) {
   };
 
   try {
-    const response = await fetch(
-      `${baseURL}/teachers/createnewstudent`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(studentData),
-      }
-    );
+    const response = await fetch(`${baseURL}/teachers/createNewStudent`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(studentData),
+    });
 
     if (response.ok) {
       const result = await response.json();
@@ -130,17 +125,11 @@ document.getElementById("studentForm").onsubmit = async function (e) {
 };
 
 function showStudentProfileCreationSuccessPopup(studentName) {
-  const successPopupElement = document.getElementById(
-    "student-profile-creation-success-popup"
-  );
-  const successMessageElement = document.getElementById(
-    "student-profile-creation-success-message"
-  );
-  const okButtonElement = document.getElementById(
-    "student-profile-creation-success-ok-button"
-  );
+  const successPopupElement = document.getElementById("student-profile-creation-success-popup");
+  const successMessageElement = document.getElementById("student-profile-creation-success-message");
+  const okButtonElement = document.getElementById("student-profile-creation-success-ok-button");
 
-  successMessageElement.textContent = `Profile for ${studentName} created successfully!`;
+  successMessageElement.textContent = `Profile for ${sanitizeHtml(studentName)} created successfully!`;
 
   body.style.overflow = "hidden";
   successPopupElement.style.display = "flex";
@@ -162,15 +151,12 @@ async function fetchAndDisplayStudents() {
       throw new Error("Invalid student class");
     }
 
-    const response = await fetch(
-      `${baseURL}/teachers/fetchstudentsbyclass?studentClass=${studentClass}`,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
+    const response = await fetch(`${baseURL}/teachers/fetchStudentByClass?studentClass=${studentClass}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
 
     if (!response.ok) {
       throw new Error("Network response was not ok");
@@ -184,7 +170,7 @@ async function fetchAndDisplayStudents() {
       studentDiv.className = "student-div";
 
       const nameElement = document.createElement("h3");
-      nameElement.textContent = student.studentName; // Use textContent for safe text insertion
+      nameElement.textContent = sanitizeHtml(student.studentName);
 
       const buttonsDiv = document.createElement("div");
       buttonsDiv.className = "student-buttons";
@@ -204,10 +190,8 @@ async function fetchAndDisplayStudents() {
       };
 
       buttonsDiv.appendChild(deleteButton);
-
       studentDiv.appendChild(nameElement);
       studentDiv.appendChild(buttonsDiv);
-
       containerElement.appendChild(studentDiv);
     });
   } catch (error) {
@@ -217,20 +201,12 @@ async function fetchAndDisplayStudents() {
 }
 
 function showDeleteConfirmationPopup(studentId, studentName) {
-  const deletePopupElement = document.getElementById(
-    "delete-confirmation-popup"
-  );
-  const deleteMessageElement = document.getElementById(
-    "delete-confirmation-message"
-  );
-  const deleteButtonElement = document.getElementById(
-    "delete-confirmation-delete-button"
-  );
-  const closeButtonElement = document.getElementById(
-    "delete-confirmation-close-button"
-  );
+  const deletePopupElement = document.getElementById("delete-confirmation-popup");
+  const deleteMessageElement = document.getElementById("delete-confirmation-message");
+  const deleteButtonElement = document.getElementById("delete-confirmation-delete-button");
+  const closeButtonElement = document.getElementById("delete-confirmation-close-button");
 
-  deleteMessageElement.textContent = `Are you sure you want to delete ${studentName} from your students list?`;
+  deleteMessageElement.textContent = `Are you sure you want to delete ${sanitizeHtml(studentName)} from your students list?`;
 
   deletePopupElement.style.display = "flex";
   body.style.overflow = "hidden";
@@ -242,15 +218,12 @@ function showDeleteConfirmationPopup(studentId, studentName) {
 
   deleteButtonElement.onclick = async function () {
     try {
-      const response = await fetch(
-        `${baseURL}/teachers/deletestudent/${studentId}`,
-        {
-          method: "DELETE",
-        }
-      );
+      const response = await fetch(`${baseURL}/teachers/deleteStudent/${studentId}`, {
+        method: "DELETE",
+      });
 
       if (response.ok) {
-        console.log(`Student profile for ${studentName} deleted successfully`);
+        console.log(`Student profile for ${sanitizeHtml(studentName)} deleted successfully`);
         deletePopupElement.style.display = "none";
         fetchAndDisplayStudents();
       } else {
@@ -270,15 +243,12 @@ async function fetchUniqueStudents() {
   try {
     const classId = globalVariables.teacherClass;
 
-    const response = await fetch(
-      `${baseURL}/teachers/fetchstudentsbyclass?studentClass=${classId}`,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
+    const response = await fetch(`${baseURL}/teachers/fetchStudentByClass?studentClass=${classId}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
 
     if (!response.ok) throw new Error("Failed to fetch students");
 
@@ -324,83 +294,68 @@ function renderUniqueStudentsForAttendance() {
   });
 }
 
-document
-  .getElementById("unique-open-attendance-btn")
-  .addEventListener("click", () => {
-    fetchUniqueStudents();
-    document.getElementById("unique-attendance-overlay").style.display = "flex";
-    document.body.style.overflow = "hidden";
+document.getElementById("unique-open-attendance-btn").addEventListener("click", () => {
+  fetchUniqueStudents();
+  document.getElementById("unique-attendance-overlay").style.display = "flex";
+  document.body.style.overflow = "hidden";
+});
+
+document.getElementById("unique-close-attendance-icon").addEventListener("click", () => {
+  document.getElementById("unique-attendance-overlay").style.display = "none";
+  document.body.style.overflow = "auto";
+});
+
+document.getElementById("unique-submit-attendance-btn").addEventListener("click", (event) => {
+  event.preventDefault();
+
+  const absentStudents = [];
+  uniqueStudentList.forEach((student, index) => {
+    const checkbox = document.querySelector(`input[name="student${index}-status"]`);
+    if (!checkbox.checked) {
+      absentStudents.push({
+        _id: student._id,
+        studentName: student.studentName,
+      });
+    }
   });
 
-document
-  .getElementById("unique-close-attendance-icon")
-  .addEventListener("click", () => {
-    document.getElementById("unique-attendance-overlay").style.display = "none";
-    document.body.style.overflow = "auto";
-  });
+  document.getElementById("unique-attendance-overlay").style.display = "none";
+  document.body.style.overflow = "auto";
 
-document
-  .getElementById("unique-submit-attendance-btn")
-  .addEventListener("click", (event) => {
-    event.preventDefault();
-
-    const absentStudents = [];
-    uniqueStudentList.forEach((student, index) => {
-      const checkbox = document.querySelector(
-        `input[name="student${index}-status"]`
-      );
-      if (!checkbox.checked) {
-        absentStudents.push({
-          _id: student._id,
-          studentName: student.studentName,
-        });
-      }
-    });
-
-    document.getElementById("unique-attendance-overlay").style.display = "none";
-    document.body.style.overflow = "auto";
-
-    attendanceConfirmationPopup(absentStudents);
-  });
+  attendanceConfirmationPopup(absentStudents);
+});
 
 function attendanceConfirmationPopup(absentStudents) {
   document.body.style.overflow = "hidden";
 
-  document.getElementById("confirmation-popup-uniqueId123").style.display =
-    "flex";
+  document.getElementById("confirmation-popup-uniqueId123").style.display = "flex";
   const studentNames = absentStudents
     .map((student) => sanitizeHtml(student.studentName))
     .join(", ");
-  document.getElementById("confirmation-popup-content-p").innerHTML =
-    studentNames;
+  document.getElementById("confirmation-popup-content-p").innerHTML = studentNames;
 
-  document.getElementById("popup-yes-button-uniqueId123").onclick =
-    function () {
-      if (absentStudents.length > 0) {
-        console.log("Absent Students:", absentStudents);
-        sendAbsentStudentsToServer(absentStudents);
-        sendAbsentStudentsToAttendanceRecordsServer(absentStudents);
-        // WhatsApp messaging logic here
-      } else {
-        sendAbsentStudentsToAttendanceRecordsServer(absentStudents);
-      }
+  document.getElementById("popup-yes-button-uniqueId123").onclick = function () {
+    if (absentStudents.length > 0) {
+      console.log("Absent Students:", absentStudents);
+      sendAbsentStudentsToServer(absentStudents);
+      sendAbsentStudentsToAttendanceRecordsServer(absentStudents);
+      // WhatsApp messaging logic here
+    } else {
+      sendAbsentStudentsToAttendanceRecordsServer(absentStudents);
+    }
 
-      document.body.style.overflow = "auto";
-      document.getElementById("confirmation-popup-uniqueId123").style.display =
-        "none";
-    };
+    document.body.style.overflow = "auto";
+    document.getElementById("confirmation-popup-uniqueId123").style.display = "none";
+  };
 
-  document.getElementById("popup-cancel-button-uniqueId123").onclick =
-    function () {
-      document.getElementById("confirmation-popup-uniqueId123").style.display =
-        "none";
-      document.body.style.overflow = "auto";
-    };
+  document.getElementById("popup-cancel-button-uniqueId123").onclick = function () {
+    document.getElementById("confirmation-popup-uniqueId123").style.display = "none";
+    document.body.style.overflow = "auto";
+  };
 }
 
 document.querySelector(".popup-close-icon-uniqueId123").onclick = function () {
-  document.getElementById("confirmation-popup-uniqueId123").style.display =
-    "none";
+  document.getElementById("confirmation-popup-uniqueId123").style.display = "none";
   document.body.style.overflow = "auto";
 };
 
@@ -411,7 +366,7 @@ async function sendAbsentStudentsToServer(absentStudents) {
   };
 
   try {
-    const response = await fetch(`${baseURL}/teachers/markabsent`, {
+    const response = await fetch(`${baseURL}/teachers/markAbsent`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -422,10 +377,7 @@ async function sendAbsentStudentsToServer(absentStudents) {
     if (response.ok) {
       console.log("Absent students' data sent to server successfully");
     } else {
-      console.error(
-        "Failed to send absent students' data to server:",
-        response.statusText
-      );
+      console.error("Failed to send absent students' data to server:", response.statusText);
       alert("Failed to mark absent students.");
     }
   } catch (error) {
@@ -442,24 +394,18 @@ async function sendAbsentStudentsToAttendanceRecordsServer(absentStudents) {
   };
 
   try {
-    const response = await fetch(
-      `${baseURL}/attendanceRecords/markabsent`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(requestBody),
-      }
-    );
+    const response = await fetch(`${baseURL}/attendanceRecords/markAbsent`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(requestBody),
+    });
 
     if (response.ok) {
       console.log("Absent students' data sent to server successfully");
     } else {
-      console.error(
-        "Failed to send absent students' data to server:",
-        response.statusText
-      );
+      console.error("Failed to send absent students' data to server:", response.statusText);
       alert("Failed to mark absent students.");
     }
   } catch (error) {
@@ -468,42 +414,31 @@ async function sendAbsentStudentsToAttendanceRecordsServer(absentStudents) {
   }
 }
 
-document
-  .getElementById("show-attendance-records-btn")
-  .addEventListener("click", async () => {
-    document.getElementById(
-      "attendance-records-popup-dashboard"
-    ).style.display = "grid";
-    document.body.style.overflow = "hidden";
+document.getElementById("show-attendance-records-btn").addEventListener("click", async () => {
+  document.getElementById("attendance-records-popup-dashboard").style.display = "grid";
+  document.body.style.overflow = "hidden";
 
-    try {
-      const response = await fetch(
-        `${baseURL}/attendanceRecords/getattendance?class=${globalVariables.teacherClass}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
+  try {
+    const response = await fetch(`${baseURL}/attendanceRecords/getAttendance?class=${globalVariables.teacherClass}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
 
-      if (!response.ok) throw new Error("Failed to fetch attendance records");
+    if (!response.ok) throw new Error("Failed to fetch attendance records");
 
-      const records = await response.json();
-      displayAttendanceRecords(records);
-    } catch (error) {
-      console.error("Error fetching attendance records:", error);
-    }
-  });
+    const records = await response.json();
+    displayAttendanceRecords(records);
+  } catch (error) {
+    console.error("Error fetching attendance records:", error);
+  }
+});
 
-document
-  .getElementById("attendance-records-popup-close")
-  .addEventListener("click", () => {
-    document.getElementById(
-      "attendance-records-popup-dashboard"
-    ).style.display = "none";
-    document.body.style.overflow = "auto";
-  });
+document.getElementById("attendance-records-popup-close").addEventListener("click", () => {
+  document.getElementById("attendance-records-popup-dashboard").style.display = "none";
+  document.body.style.overflow = "auto";
+});
 
 function displayAttendanceRecords(records) {
   const contentDiv = document.getElementById("attendance-records-content");
@@ -512,8 +447,8 @@ function displayAttendanceRecords(records) {
   function formatDate(date) {
     const d = new Date(date);
     const day = String(d.getDate()).padStart(2, '0');
-    const month = String(d.getMonth() + 1).padStart(2, '0'); // Months are zero-based
-    const year = String(d.getFullYear()).slice(-2); // Get last 2 digits of year
+    const month = String(d.getMonth() + 1).padStart(2, '0');
+    const year = String(d.getFullYear()).slice(-2);
     return `${day}/${month}/${year}`;
   }
 
@@ -522,11 +457,11 @@ function displayAttendanceRecords(records) {
     const recordDiv = document.createElement("div");
     recordDiv.className = "attendance-record-item";
     recordDiv.innerHTML = `
-        <div class="attendance-record-content">
-        <div class="attendance-record-date">${formattedDate}</div>
+      <div class="attendance-record-content">
+        <div class="attendance-record-date">${sanitizeHtml(formattedDate)}</div>
         <div class="attendance-record-students">${sanitizeHtml(record.absentStudents.join(", "))}</div>
-        </div>
-      `;
+      </div>
+    `;
     contentDiv.appendChild(recordDiv);
   });
 }
