@@ -531,7 +531,7 @@ function displayAttendanceRecords(records) {
   });
 }
 
-// Simple HTML sanitization function
+//HTML sanitization function
 function sanitizeHtml(text) {
   const div = document.createElement('div');
   div.textContent = text;
