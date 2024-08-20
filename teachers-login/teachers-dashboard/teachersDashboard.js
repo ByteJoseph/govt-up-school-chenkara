@@ -10,16 +10,6 @@ if (teacherID) {
   body.style.display = "none";
 }
 
-// Utility function to escape HTML content
-function escapeHtml(unsafe) {
-  return unsafe
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#039;");
-}
-
 async function getTeacherById(teacherID) {
   try {
     const response = await fetch(`${baseURL}/teachers/dashboard`, {
@@ -35,6 +25,7 @@ async function getTeacherById(teacherID) {
     }
 
     const teacherData = await response.json();
+
     saveTeacherData(teacherData);
     updateDOM();
     fetchAndDisplayStudents();
@@ -55,14 +46,17 @@ function saveTeacherData(teacherData) {
   globalVariables.teacherMobileNumber = teacherData.mobileNumber;
 }
 
+console.log({ globalVariables });
+
 function updateDOM() {
   const teacherNameView = document.getElementById("teacherName");
-  teacherNameView.innerHTML = escapeHtml(globalVariables.teacherName);
+  teacherNameView.innerHTML = globalVariables.teacherName;
 
-  document.getElementById("trname").innerText = escapeHtml(globalVariables.teacherName);
-  document.getElementById("trclass").innerText = escapeHtml(globalVariables.teacherClass);
-  document.getElementById("trNumber").innerText = escapeHtml(globalVariables.teacherMobileNumber);
-  document.getElementById("trcode").innerText = escapeHtml(teacherID);
+  document.getElementById("trname").innerText = globalVariables.teacherName;
+  document.getElementById("trclass").innerText = globalVariables.teacherClass;
+  document.getElementById("trNumber").innerText =
+    globalVariables.teacherMobileNumber;
+  document.getElementById("trcode").innerText = teacherID;
 }
 
 let popup = document.getElementById("create-student-popup");
@@ -88,13 +82,15 @@ window.onclick = function (event) {
 document.getElementById("studentForm").onsubmit = async function (e) {
   e.preventDefault();
 
-  const studentName = escapeHtml(document.getElementById("studentName").value);
+  const studentName = document.getElementById("studentName").value;
   const studentClass = globalVariables.teacherClass;
-  const studentGender = escapeHtml(document.querySelector('input[name="gender"]:checked').value);
-  const motherName = escapeHtml(document.getElementById("motherName").value);
-  const fatherName = escapeHtml(document.getElementById("fatherName").value);
-  const motherNumber = escapeHtml(document.getElementById("motherPhone").value);
-  const fatherNumber = escapeHtml(document.getElementById("fatherPhone").value);
+  const studentGender = document.querySelector(
+    'input[name="gender"]:checked'
+  ).value;
+  const motherName = document.getElementById("motherName").value;
+  const fatherName = document.getElementById("fatherName").value;
+  const motherNumber = document.getElementById("motherPhone").value;
+  const fatherNumber = document.getElementById("fatherPhone").value;
 
   const studentData = {
     studentName,
@@ -107,21 +103,27 @@ document.getElementById("studentForm").onsubmit = async function (e) {
   };
 
   try {
-    const response = await fetch(`${baseURL}/teachers/createnewstudent`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(studentData),
-    });
+    const response = await fetch(
+      `${baseURL}/teachers/createnewstudent`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(studentData),
+      }
+    );
+
+    console.log("post submitted for creating new student");
 
     if (response.ok) {
       const result = await response.json();
       showStudentProfileCreationSuccessPopup(studentName);
+
       popup.style.display = "none";
       this.reset();
     } else {
-      alert("Operation failed");
+      alert("operation failed");
       console.error("Failed to create student:", response.statusText);
       body.style.overflow = "auto";
       popup.style.display = "none";
@@ -133,11 +135,17 @@ document.getElementById("studentForm").onsubmit = async function (e) {
 };
 
 function showStudentProfileCreationSuccessPopup(studentName) {
-  const successPopupElement = document.getElementById("student-profile-creation-success-popup");
-  const successMessageElement = document.getElementById("student-profile-creation-success-message");
-  const okButtonElement = document.getElementById("student-profile-creation-success-ok-button");
+  const successPopupElement = document.getElementById(
+    "student-profile-creation-success-popup"
+  );
+  const successMessageElement = document.getElementById(
+    "student-profile-creation-success-message"
+  );
+  const okButtonElement = document.getElementById(
+    "student-profile-creation-success-ok-button"
+  );
 
-  successMessageElement.textContent = `Profile for ${escapeHtml(studentName)} created successfully!`;
+  successMessageElement.textContent = `Profile for ${studentName} created successfully!`;
 
   body.style.overflow = "hidden";
   successPopupElement.style.display = "flex";
@@ -154,17 +162,21 @@ const containerElement = document.getElementById("student-container");
 async function fetchAndDisplayStudents() {
   try {
     const studentClass = globalVariables.teacherClass;
+    console.log(studentClass);
 
     if (isNaN(studentClass)) {
       throw new Error("Invalid student class");
     }
 
-    const response = await fetch(`${baseURL}/teachers/fetchstudentsbyclass?studentClass=${studentClass}`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    const response = await fetch(
+      `${baseURL}/teachers/fetchstudentsbyclass?studentClass=${studentClass}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
 
     if (!response.ok) {
       throw new Error("Network response was not ok");
@@ -173,12 +185,12 @@ async function fetchAndDisplayStudents() {
     const students = await response.json();
     containerElement.innerHTML = "";
 
-    students.forEach((student) => {
+    students.forEach((students) => {
       const studentDiv = document.createElement("div");
       studentDiv.className = "student-div";
 
       const nameElement = document.createElement("h3");
-      nameElement.textContent = escapeHtml(student.studentName);
+      nameElement.textContent = students.studentName;
 
       const buttonsDiv = document.createElement("div");
       buttonsDiv.className = "student-buttons";
@@ -187,14 +199,14 @@ async function fetchAndDisplayStudents() {
       deleteButton.className = "delete";
       deleteButton.textContent = "Delete";
 
-      if (student._id) {
-        deleteButton.dataset.studentId = student._id;
+      if (students._id) {
+        deleteButton.dataset.studentId = students._id;
       } else {
-        console.error("No student ID found for:", student);
+        console.error("No student ID found for:", students);
       }
 
       deleteButton.onclick = function () {
-        showDeleteConfirmationPopup(student._id, student.studentName);
+        showDeleteConfirmationPopup(students._id, students.studentName);
       };
 
       buttonsDiv.appendChild(deleteButton);
@@ -211,12 +223,20 @@ async function fetchAndDisplayStudents() {
 }
 
 function showDeleteConfirmationPopup(studentId, studentName) {
-  const deletePopupElement = document.getElementById("delete-confirmation-popup");
-  const deleteMessageElement = document.getElementById("delete-confirmation-message");
-  const deleteButtonElement = document.getElementById("delete-confirmation-delete-button");
-  const closeButtonElement = document.getElementById("delete-confirmation-close-button");
+  const deletePopupElement = document.getElementById(
+    "delete-confirmation-popup"
+  );
+  const deleteMessageElement = document.getElementById(
+    "delete-confirmation-message"
+  );
+  const deleteButtonElement = document.getElementById(
+    "delete-confirmation-delete-button"
+  );
+  const closeButtonElement = document.getElementById(
+    "delete-confirmation-close-button"
+  );
 
-  deleteMessageElement.textContent = `Are you sure you want to delete ${escapeHtml(studentName)} from your students list?`;
+  deleteMessageElement.textContent = `Are you sure you want to delete ${studentName} from your students list?`;
 
   deletePopupElement.style.display = "flex";
   body.style.overflow = "hidden";
@@ -228,12 +248,15 @@ function showDeleteConfirmationPopup(studentId, studentName) {
 
   deleteButtonElement.onclick = async function () {
     try {
-      const response = await fetch(`${baseURL}/teachers/deletestudent/${studentId}`, {
-        method: "DELETE",
-      });
+      const response = await fetch(
+        `${baseURL}/teachers/deletestudent/${studentId}`,
+        {
+          method: "DELETE",
+        }
+      );
 
       if (response.ok) {
-        console.log(`Student profile for ${escapeHtml(studentName)} deleted successfully`);
+        console.log(`Student profile for ${studentName} deleted successfully`);
         deletePopupElement.style.display = "none";
         fetchAndDisplayStudents();
       } else {
@@ -247,17 +270,26 @@ function showDeleteConfirmationPopup(studentId, studentName) {
   };
 }
 
+/////ATTENDANCE-FETCHER/////////
+
 const uniqueStudentList = [];
 
 async function fetchUniqueStudents() {
   try {
     const classId = globalVariables.teacherClass;
-    const response = await fetch(`${baseURL}/teachers/fetchstudentsbyclass?studentClass=${classId}`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    console.log(
+      `Attendance Marker fetched students name list of class ${classId}`
+    );
+
+    const response = await fetch(
+      `${baseURL}/teachers/fetchstudentsbyclass?studentClass=${classId}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
 
     if (!response.ok) throw new Error("Failed to fetch students");
 
@@ -291,53 +323,226 @@ function renderUniqueStudentsForAttendance() {
   displayTodaysDate();
 
   studentListContainer.innerHTML = "";
-  uniqueStudentList.forEach((student) => {
+  uniqueStudentList.forEach((student, index) => {
     const studentDiv = document.createElement("div");
-    studentDiv.className = "unique-student-div";
-
-    const nameElement = document.createElement("h3");
-    nameElement.textContent = escapeHtml(student.studentName);
-
-    const attendanceCheckbox = document.createElement("input");
-    attendanceCheckbox.type = "checkbox";
-    attendanceCheckbox.className = "attendance-checkbox";
-    attendanceCheckbox.dataset.studentId = student._id;
-
-    studentDiv.appendChild(nameElement);
-    studentDiv.appendChild(attendanceCheckbox);
+    studentDiv.className = "unique-student-item";
+    studentDiv.innerHTML = `
+      <label>${student.studentName}</label>
+      <input type="checkbox" name="student${index}-status" value="present">
+    `;
 
     studentListContainer.appendChild(studentDiv);
   });
 }
 
-const markAttendanceButton = document.getElementById("mark-attendance");
+document
+  .getElementById("unique-open-attendance-btn")
+  .addEventListener("click", () => {
+    fetchUniqueStudents();
+    document.getElementById("unique-attendance-overlay").style.display = "flex";
+    document.body.style.overflow = "hidden";
+  });
 
-markAttendanceButton.onclick = async function () {
-  const checkboxes = document.querySelectorAll(".attendance-checkbox");
-  const date = new Date().toISOString().slice(0, 10);
+document
+  .getElementById("unique-close-attendance-icon")
+  .addEventListener("click", () => {
+    document.getElementById("unique-attendance-overlay").style.display = "none";
+    document.body.style.overflow = "auto";
+  });
 
-  const attendanceData = Array.from(checkboxes).map((checkbox) => ({
-    studentId: checkbox.dataset.studentId,
-    present: checkbox.checked,
-    date,
-  }));
+document
+  .getElementById("unique-submit-attendance-btn")
+  .addEventListener("click", (event) => {
+    event.preventDefault();
+
+    const absentStudents = [];
+    uniqueStudentList.forEach((student, index) => {
+      const checkbox = document.querySelector(
+        `input[name="student${index}-status"]`
+      );
+      if (!checkbox.checked) {
+        absentStudents.push({
+          _id: student._id,
+          studentName: student.studentName,
+        });
+      }
+    });
+
+    document.getElementById("unique-attendance-overlay").style.display = "none";
+    document.body.style.overflow = "auto";
+
+    attendanceConfirmationPopup(absentStudents);
+  });
+
+function attendanceConfirmationPopup(absentStudents) {
+  document.body.style.overflow = "hidden";
+
+  document.getElementById("confirmation-popup-uniqueId123").style.display =
+    "flex";
+  const studentNames = absentStudents
+    .map((student) => student.studentName)
+    .join(", ");
+  document.getElementById("confirmation-popup-content-p").innerHTML =
+    studentNames;
+
+  document.getElementById("popup-yes-button-uniqueId123").onclick =
+    function () {
+      if (absentStudents.length > 0) {
+        console.log("Absent Students:", absentStudents);
+        sendAbsentStudentsToServer(absentStudents);
+        sendAbsentStudentsToAttendanceRecordsServer(absentStudents);
+        // WhatsApp messaging logic here
+      } else {
+        sendAbsentStudentsToAttendanceRecordsServer(absentStudents);
+      }
+
+      document.body.style.overflow = "auto";
+      document.getElementById("confirmation-popup-uniqueId123").style.display =
+        "none";
+    };
+
+  document.getElementById("popup-cancel-button-uniqueId123").onclick =
+    function () {
+      document.getElementById("confirmation-popup-uniqueId123").style.display =
+        "none";
+      document.body.style.overflow = "auto";
+    };
+}
+
+document.querySelector(".popup-close-icon-uniqueId123").onclick = function () {
+  document.getElementById("confirmation-popup-uniqueId123").style.display =
+    "none";
+  document.body.style.overflow = "auto";
+};
+
+async function sendAbsentStudentsToServer(absentStudents) {
+  const requestBody = {
+    date: new Date().toISOString().split("T")[0],
+    absentStudents: absentStudents.map((student) => student._id),
+  };
 
   try {
-    const response = await fetch(`${baseURL}/teachers/markattendance`, {
+    const response = await fetch(`${baseURL}/teachers/markabsent`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ attendanceData }),
+      body: JSON.stringify(requestBody),
     });
 
     if (response.ok) {
-      alert("Attendance marked successfully");
+      console.log("Absent students' data sent to server successfully");
     } else {
-      alert("Failed to mark attendance");
-      console.error("Error marking attendance:", response.statusText);
+      console.error(
+        "Failed to send absent students' data to server:",
+        response.statusText
+      );
+      alert("Failed to mark absent students.");
     }
   } catch (error) {
     console.error("Error:", error);
+    alert("An error occurred while marking absent students.");
   }
-};
+}
+
+async function sendAbsentStudentsToAttendanceRecordsServer(absentStudents) {
+  const requestBody = {
+    date: new Date().toISOString(),
+    absentStudents: absentStudents.map((student) => student.studentName),
+    class: globalVariables.teacherClass,
+  };
+
+  try {
+    const response = await fetch(
+      `${baseURL}/attendanceRecords/markabsent`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(requestBody),
+      }
+    );
+
+    if (response.ok) {
+      console.log("Absent students' data sent to server successfully");
+    } else {
+      console.error(
+        "Failed to send absent students' data to server:",
+        response.statusText
+      );
+      alert("Failed to mark absent students.");
+    }
+  } catch (error) {
+    console.error("Error:", error);
+    alert("An error occurred while marking absent students.");
+  }
+}
+
+////displaying-attendance-records////
+
+document
+  .getElementById("show-attendance-records-btn")
+  .addEventListener("click", async () => {
+    document.getElementById(
+      "attendance-records-popup-dashboard"
+    ).style.display = "grid";
+    document.body.style.overflow = "hidden";
+
+    try {
+      const response = await fetch(
+        `${baseURL}/attendanceRecords/getattendance?class=${globalVariables.teacherClass}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      if (!response.ok) throw new Error("Failed to fetch attendance records");
+
+      const records = await response.json();
+      displayAttendanceRecords(records);
+    } catch (error) {
+      console.error("Error fetching attendance records:", error);
+    }
+  });
+
+document
+  .getElementById("attendance-records-popup-close")
+  .addEventListener("click", () => {
+    document.getElementById(
+      "attendance-records-popup-dashboard"
+    ).style.display = "none";
+    document.body.style.overflow = "auto";
+  });
+
+function displayAttendanceRecords(records) {
+  const contentDiv = document.getElementById("attendance-records-content");
+  contentDiv.innerHTML = "";
+
+  function formatDate(date) {
+    const d = new Date(date);
+    const day = String(d.getDate()).padStart(2, '0');
+    const month = String(d.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+    const year = String(d.getFullYear()).slice(-2); // Get last 2 digits of year
+    return `${day}/${month}/${year}`;
+  }
+
+
+  records.forEach((record) => {
+    const formattedDate = formatDate(record.date);
+    const recordDiv = document.createElement("div");
+    recordDiv.className = "attendance-record-item";
+    recordDiv.innerHTML = `
+        <div class="attendance-record-content">
+        <div class="attendance-record-date">${formattedDate}</div>
+        <div class="attendance-record-students">${record.absentStudents.join(
+          ", "
+        )}</div>
+        </div>
+      `;
+    contentDiv.appendChild(recordDiv);
+  });
+}
