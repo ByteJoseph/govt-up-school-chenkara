@@ -46,17 +46,14 @@ function saveTeacherData(teacherData) {
   globalVariables.teacherMobileNumber = teacherData.mobileNumber;
 }
 
-console.log({ globalVariables });
-
 function updateDOM() {
   const teacherNameView = document.getElementById("teacherName");
-  teacherNameView.innerHTML = globalVariables.teacherName;
+  teacherNameView.textContent = globalVariables.teacherName; // Use textContent for safe text insertion
 
-  document.getElementById("trname").innerText = globalVariables.teacherName;
-  document.getElementById("trclass").innerText = globalVariables.teacherClass;
-  document.getElementById("trNumber").innerText =
-    globalVariables.teacherMobileNumber;
-  document.getElementById("trcode").innerText = teacherID;
+  document.getElementById("trname").textContent = globalVariables.teacherName;
+  document.getElementById("trclass").textContent = globalVariables.teacherClass;
+  document.getElementById("trNumber").textContent = globalVariables.teacherMobileNumber;
+  document.getElementById("trcode").textContent = teacherID;
 }
 
 let popup = document.getElementById("create-student-popup");
@@ -114,8 +111,6 @@ document.getElementById("studentForm").onsubmit = async function (e) {
       }
     );
 
-    console.log("post submitted for creating new student");
-
     if (response.ok) {
       const result = await response.json();
       showStudentProfileCreationSuccessPopup(studentName);
@@ -123,7 +118,7 @@ document.getElementById("studentForm").onsubmit = async function (e) {
       popup.style.display = "none";
       this.reset();
     } else {
-      alert("operation failed");
+      alert("Operation failed");
       console.error("Failed to create student:", response.statusText);
       body.style.overflow = "auto";
       popup.style.display = "none";
@@ -162,7 +157,6 @@ const containerElement = document.getElementById("student-container");
 async function fetchAndDisplayStudents() {
   try {
     const studentClass = globalVariables.teacherClass;
-    console.log(studentClass);
 
     if (isNaN(studentClass)) {
       throw new Error("Invalid student class");
@@ -185,12 +179,12 @@ async function fetchAndDisplayStudents() {
     const students = await response.json();
     containerElement.innerHTML = "";
 
-    students.forEach((students) => {
+    students.forEach((student) => {
       const studentDiv = document.createElement("div");
       studentDiv.className = "student-div";
 
       const nameElement = document.createElement("h3");
-      nameElement.textContent = students.studentName;
+      nameElement.textContent = student.studentName; // Use textContent for safe text insertion
 
       const buttonsDiv = document.createElement("div");
       buttonsDiv.className = "student-buttons";
@@ -199,14 +193,14 @@ async function fetchAndDisplayStudents() {
       deleteButton.className = "delete";
       deleteButton.textContent = "Delete";
 
-      if (students._id) {
-        deleteButton.dataset.studentId = students._id;
+      if (student._id) {
+        deleteButton.dataset.studentId = student._id;
       } else {
-        console.error("No student ID found for:", students);
+        console.error("No student ID found for:", student);
       }
 
       deleteButton.onclick = function () {
-        showDeleteConfirmationPopup(students._id, students.studentName);
+        showDeleteConfirmationPopup(student._id, student.studentName);
       };
 
       buttonsDiv.appendChild(deleteButton);
@@ -270,16 +264,11 @@ function showDeleteConfirmationPopup(studentId, studentName) {
   };
 }
 
-/////ATTENDANCE-FETCHER/////////
-
 const uniqueStudentList = [];
 
 async function fetchUniqueStudents() {
   try {
     const classId = globalVariables.teacherClass;
-    console.log(
-      `Attendance Marker fetched students name list of class ${classId}`
-    );
 
     const response = await fetch(
       `${baseURL}/teachers/fetchstudentsbyclass?studentClass=${classId}`,
@@ -327,7 +316,7 @@ function renderUniqueStudentsForAttendance() {
     const studentDiv = document.createElement("div");
     studentDiv.className = "unique-student-item";
     studentDiv.innerHTML = `
-      <label>${student.studentName}</label>
+      <label>${sanitizeHtml(student.studentName)}</label>
       <input type="checkbox" name="student${index}-status" value="present">
     `;
 
@@ -380,7 +369,7 @@ function attendanceConfirmationPopup(absentStudents) {
   document.getElementById("confirmation-popup-uniqueId123").style.display =
     "flex";
   const studentNames = absentStudents
-    .map((student) => student.studentName)
+    .map((student) => sanitizeHtml(student.studentName))
     .join(", ");
   document.getElementById("confirmation-popup-content-p").innerHTML =
     studentNames;
@@ -479,8 +468,6 @@ async function sendAbsentStudentsToAttendanceRecordsServer(absentStudents) {
   }
 }
 
-////displaying-attendance-records////
-
 document
   .getElementById("show-attendance-records-btn")
   .addEventListener("click", async () => {
@@ -530,7 +517,6 @@ function displayAttendanceRecords(records) {
     return `${day}/${month}/${year}`;
   }
 
-
   records.forEach((record) => {
     const formattedDate = formatDate(record.date);
     const recordDiv = document.createElement("div");
@@ -538,11 +524,16 @@ function displayAttendanceRecords(records) {
     recordDiv.innerHTML = `
         <div class="attendance-record-content">
         <div class="attendance-record-date">${formattedDate}</div>
-        <div class="attendance-record-students">${record.absentStudents.join(
-          ", "
-        )}</div>
+        <div class="attendance-record-students">${sanitizeHtml(record.absentStudents.join(", "))}</div>
         </div>
       `;
     contentDiv.appendChild(recordDiv);
   });
+}
+
+// Simple HTML sanitization function
+function sanitizeHtml(text) {
+  const div = document.createElement('div');
+  div.textContent = text;
+  return div.innerHTML;
 }
