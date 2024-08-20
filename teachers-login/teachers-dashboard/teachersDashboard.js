@@ -4,10 +4,20 @@ const teacherID = urlParams.get("teacherID");
 const body = document.getElementById("body");
 
 if (teacherID) {
-  console.log("Logged in Teacher ID:", escapeHtml(teacherID));
+  console.log("Logged in Teacher ID:", teacherID);
   getTeacherById(teacherID);
 } else {
   body.style.display = "none";
+}
+
+// Utility function to escape HTML content
+function escapeHtml(unsafe) {
+  return unsafe
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
 }
 
 async function getTeacherById(teacherID) {
@@ -40,21 +50,19 @@ const globalVariables = {
 };
 
 function saveTeacherData(teacherData) {
-  globalVariables.teacherName = escapeHtml(teacherData.name);
-  globalVariables.teacherClass = escapeHtml(teacherData.class);
-  globalVariables.teacherMobileNumber = escapeHtml(teacherData.mobileNumber);
+  globalVariables.teacherName = teacherData.name;
+  globalVariables.teacherClass = teacherData.class;
+  globalVariables.teacherMobileNumber = teacherData.mobileNumber;
 }
-
-console.log({ globalVariables });
 
 function updateDOM() {
   const teacherNameView = document.getElementById("teacherName");
-  teacherNameView.textContent = globalVariables.teacherName;
+  teacherNameView.innerHTML = escapeHtml(globalVariables.teacherName);
 
-  document.getElementById("trname").textContent = globalVariables.teacherName;
-  document.getElementById("trclass").textContent = globalVariables.teacherClass;
-  document.getElementById("trNumber").textContent = globalVariables.teacherMobileNumber;
-  document.getElementById("trcode").textContent = escapeHtml(teacherID);
+  document.getElementById("trname").innerText = escapeHtml(globalVariables.teacherName);
+  document.getElementById("trclass").innerText = escapeHtml(globalVariables.teacherClass);
+  document.getElementById("trNumber").innerText = escapeHtml(globalVariables.teacherMobileNumber);
+  document.getElementById("trcode").innerText = escapeHtml(teacherID);
 }
 
 let popup = document.getElementById("create-student-popup");
@@ -82,16 +90,11 @@ document.getElementById("studentForm").onsubmit = async function (e) {
 
   const studentName = escapeHtml(document.getElementById("studentName").value);
   const studentClass = globalVariables.teacherClass;
-  const studentGender = document.querySelector('input[name="gender"]:checked').value;
+  const studentGender = escapeHtml(document.querySelector('input[name="gender"]:checked').value);
   const motherName = escapeHtml(document.getElementById("motherName").value);
   const fatherName = escapeHtml(document.getElementById("fatherName").value);
   const motherNumber = escapeHtml(document.getElementById("motherPhone").value);
   const fatherNumber = escapeHtml(document.getElementById("fatherPhone").value);
-
-  if (!validatePhoneNumber(motherNumber) || !validatePhoneNumber(fatherNumber)) {
-    alert("Invalid phone number format.");
-    return;
-  }
 
   const studentData = {
     studentName,
@@ -195,6 +198,7 @@ async function fetchAndDisplayStudents() {
       };
 
       buttonsDiv.appendChild(deleteButton);
+
       studentDiv.appendChild(nameElement);
       studentDiv.appendChild(buttonsDiv);
 
@@ -248,7 +252,6 @@ const uniqueStudentList = [];
 async function fetchUniqueStudents() {
   try {
     const classId = globalVariables.teacherClass;
-
     const response = await fetch(`${baseURL}/teachers/fetchstudentsbyclass?studentClass=${classId}`, {
       method: "GET",
       headers: {
@@ -288,32 +291,53 @@ function renderUniqueStudentsForAttendance() {
   displayTodaysDate();
 
   studentListContainer.innerHTML = "";
-  uniqueStudentList.forEach((student, index) => {
+  uniqueStudentList.forEach((student) => {
     const studentDiv = document.createElement("div");
     studentDiv.className = "unique-student-div";
 
-    const studentName = document.createElement("h3");
-    studentName.textContent = escapeHtml(student.studentName);
+    const nameElement = document.createElement("h3");
+    nameElement.textContent = escapeHtml(student.studentName);
 
-    const attendanceInput = document.createElement("input");
-    attendanceInput.type = "checkbox";
-    attendanceInput.id = `student-attendance-${index}`;
-    attendanceInput.dataset.studentId = student._id || '';
+    const attendanceCheckbox = document.createElement("input");
+    attendanceCheckbox.type = "checkbox";
+    attendanceCheckbox.className = "attendance-checkbox";
+    attendanceCheckbox.dataset.studentId = student._id;
 
-    studentDiv.appendChild(studentName);
-    studentDiv.appendChild(attendanceInput);
+    studentDiv.appendChild(nameElement);
+    studentDiv.appendChild(attendanceCheckbox);
 
     studentListContainer.appendChild(studentDiv);
   });
 }
 
-function validatePhoneNumber(phoneNumber) {
-  const re = /^[0-9]{10}$/;
-  return re.test(phoneNumber);
-}
+const markAttendanceButton = document.getElementById("mark-attendance");
 
-function escapeHtml(text) {
-  const element = document.createElement('div');
-  element.innerText = text;
-  return element.innerHTML;
-}
+markAttendanceButton.onclick = async function () {
+  const checkboxes = document.querySelectorAll(".attendance-checkbox");
+  const date = new Date().toISOString().slice(0, 10);
+
+  const attendanceData = Array.from(checkboxes).map((checkbox) => ({
+    studentId: checkbox.dataset.studentId,
+    present: checkbox.checked,
+    date,
+  }));
+
+  try {
+    const response = await fetch(`${baseURL}/teachers/markattendance`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ attendanceData }),
+    });
+
+    if (response.ok) {
+      alert("Attendance marked successfully");
+    } else {
+      alert("Failed to mark attendance");
+      console.error("Error marking attendance:", response.statusText);
+    }
+  } catch (error) {
+    console.error("Error:", error);
+  }
+};
