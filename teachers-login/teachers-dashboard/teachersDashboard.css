@@ -890,7 +890,7 @@ input[type="checkbox"] {
   }
 
   .attendance-popup {
-    display: flex;
+    display: none;
     align-items: center;
   }
 
